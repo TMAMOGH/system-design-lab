@@ -10,9 +10,9 @@
 
 ## FPS check (Chrome, reference design at 1×, plateau, 10 s recording)
 
-- Average fps:
-- In-browser engine rate (Controls):
-- Lagging badge appeared at 1×? (must be no)
+- Average fps: **still to measure in real Chrome.** The Claude browser pane was hidden during the run, which throttles `requestAnimationFrame` to about 1 fps, so the reading taken there is not valid.
+- In-browser engine rate (Controls): 96k–133k events/s on the plateau (Claude browser pane, 2026-11-24)
+- Lagging badge appeared at 1×? **No.** Plateau playback held 1.000× virtual time per wall-clock second (t = 60 → 86 s).
 
 ## Prediction exercise: "Scale a write-heavier app"
 
@@ -31,12 +31,20 @@
 
 ## M1 UI check
 
-1. Starter design fails on errorRate, names `server-1` as bottleneck and in the hint:
-2. Reference design runs to the end and passes:
-3. Invalid connections refused with a reason:
-4. No lagging badge at 1× on the plateau (may appear at 5×):
-5. Pause during Run to end → paused; Play resumes to done:
-6. Reset restores editing; nothing from the old run appears:
+Checked by Claude in the browser pane on 2026-11-24.
+
+1. Starter design fails on errorRate, names `server-1` as bottleneck and in the hint: **pass.** Error rate 88.6%, p99 116 ms. Bottleneck `server-1`, chosen by workers in use (100% in use, 14% own work). The hint names `server-1`.
+2. Reference design runs to the end and passes: **pass.** p99 54.3 ms, 0.00% errors, $2.00/h. Bottleneck `db`, chosen by own work (61%).
+3. Invalid connections refused with a reason: **pass.** Client → database shows "A client cannot send requests to a database."
+4. No lagging badge at 1× on the plateau (may appear at 5×): **pass** (see the FPS section). The fps figure is still pending.
+5. Pause during Run to end → paused; Play resumes to done: **pass.** Time stayed frozen at t = 104 s while paused, then the run resumed and finished.
+6. Reset restores editing; nothing from the old run appears: **pass.** Reset both after `done` and mid-run; the dashboard stayed empty and the design was kept.
+
+Also checked:
+- Validation errors are listed on Play when the design is incomplete.
+- Edges can be deleted.
+- An instances value of 25 is clamped to 20.
+- Cost updates live as the design changes.
 
 ## Gate review
 
