@@ -2,8 +2,10 @@
 
 A local, browser-only sandbox for learning system design by building architectures, sending traffic through them, and watching them break.
 
-- Roadmap: `system_design_course_plan.md`
-- M1 build spec: `m1_spec.md`
+- **Documentation index:** [`docs/README.md`](docs/README.md) — start here for status, architecture, decisions and review history
+- Roadmap: [`system_design_course_plan.md`](system_design_course_plan.md)
+- M1 build spec: [`m1_spec.md`](m1_spec.md)
+- M2 build spec (in review): [`m2_spec.md`](m2_spec.md)
 
 ## Setup
 
